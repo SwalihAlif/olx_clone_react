@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import Logo from '../../olx-logo.png'; // Ensure this path is correct
 import './Signup.css';
-import {signUp} from '../../firebase'
+// import {signUp} from '../../firebase'
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contex/AuthContex';
 
 export default function Signup() {
 
+  const { signUp } = useAuth();
+
   const [signupState, setSignupState] = useState("Sign Up")
+
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('')
@@ -15,9 +21,17 @@ export default function Signup() {
   const user_auth = async (event) => {
     event.preventDefault();
     if (signupState==="Sign Up") {
-      await signUp(username, email, password, phone);
+      try {
+        await signUp(email, password, username, phone);
+        alert("Signed up successfully")
+        navigate('/');
+
+      } catch (error) {
+        console.error("Signup error: ", error);
+        alert("Signup failed");
+      }
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();

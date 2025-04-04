@@ -8,6 +8,13 @@
     transform: translate(-50%, -50%);
     border-radius: 6px;
   }
+
+  .loginParentDiv form {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 16px; /* Space between fields */
+  }
+  
   
   .loginParentDiv .input {
     border-top-color: transparent;

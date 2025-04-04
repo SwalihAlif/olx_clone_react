@@ -3,11 +3,15 @@ import Logo from '../../olx-logo.png';
 import './Login.css';
 // import {login} from '../../firebase'
 import { useAuth } from '../../contex/AuthContex';
+import {useNavigate} from 'react-router-dom'
+
 
 
 function Login() {
 
   const {login, user} = useAuth();
+
+  const navigate = useNavigate();
 
   const [signState, setSignState] = useState("Sign In")
   const [email, setEmail] = useState("");
@@ -18,6 +22,7 @@ function Login() {
     if(signState==="Sign In"){
       try{
         await login(email, password);
+        navigate("/")
         alert("✅ Logged in successfully");
         console.log("User: ", user)
 
