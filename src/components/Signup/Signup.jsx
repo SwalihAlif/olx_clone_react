@@ -87,7 +87,7 @@ export default function Signup() {
           <button type="submit" onClick={user_auth}>{signupState}</button>
         </form>
         
-        <a href="#">Login</a>
+        <a href="/login">Login</a>
       </div>
     </div>
   );
