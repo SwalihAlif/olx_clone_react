@@ -15,7 +15,7 @@ import {addDoc,
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCFgAIuWoeeJ3lwx2zb6mmtjxc9IxRaXPQ",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "olx-clone-react-7f17e.firebaseapp.com",
   projectId: "olx-clone-react-7f17e",
   storageBucket: "olx-clone-react-7f17e.firebasestorage.app",
