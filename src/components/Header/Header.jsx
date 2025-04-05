@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
 import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
+import { useAuth } from '../../contex/AuthContex';
 
 function Header() {
+  const {user} = useAuth();
+
+  const [displayUser, setDisplayUser] = useState(null);
+
+  console.log("User in header:", user);
+
+  useEffect(() => {
+    setDisplayUser(user);
+    console.log("Updated user in header:", user);
+}) 
+
+
   return (
     <header className="headerParentDiv">
       <div className="headerChildDiv">
@@ -40,7 +53,7 @@ function Header() {
 
         {/* Login Section */}
         <div className="loginPage">
-          <span>Login</span>
+        <span>Welcome, {user?.username || user?.email || "Login"}!</span>
           <hr />
         </div>
 
