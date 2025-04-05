@@ -17,6 +17,10 @@ function Header() {
     navigate('/login');
   }
 
+  const handleLogin = () => {
+    navigate('/login')
+  }
+
   const [displayUser, setDisplayUser] = useState(null);
 
   console.log("User in header:", user);
@@ -60,12 +64,21 @@ function Header() {
 
         {/* Login Section */}
         <div className="loginPage">
-        <span>Welcome, {user?.username || user?.email || "Login"}!</span>
+        <span>Welcome, {user?.username || user?.email || "Guest"}!</span>
           <hr />
         </div>
-        {user && <span onClick={handleLogout}
+        {user ? (
+        <span onClick={handleLogout}
         style={{ cursor: 'pointer', color: 'blue' }}
-          >Logout</span>}
+          >Logout</span>
+        ) : (
+          <span onClick={handleLogin}
+          style={{cursor: 'pointer', color: 'green'}}
+          >
+            Login
+          </span>
+        )
+        }
 
         {/* Sell Button */}
         <div className="sellMenu">
