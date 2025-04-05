@@ -6,9 +6,16 @@ import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
 import { useAuth } from '../../contex/AuthContex';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
-  const {user} = useAuth();
+  const {user, logout} = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async() => {
+    await logout();
+    navigate('/login');
+  }
 
   const [displayUser, setDisplayUser] = useState(null);
 
@@ -56,6 +63,9 @@ function Header() {
         <span>Welcome, {user?.username || user?.email || "Login"}!</span>
           <hr />
         </div>
+        {user && <span onClick={handleLogout}
+        style={{ cursor: 'pointer', color: 'blue' }}
+          >Logout</span>}
 
         {/* Sell Button */}
         <div className="sellMenu">
