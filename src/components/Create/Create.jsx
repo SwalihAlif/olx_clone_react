@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import './Create.css';
 import Header from '../Header/Header';
+import { useAuth } from '../../contex/AuthContex';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../firebase'; // ✅ Firestore db import
 
 const Create = () => {
+  const { user } = useAuth();
+
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -40,9 +45,20 @@ const Create = () => {
       const imageUrl = data.secure_url;
       console.log('Image URL:', imageUrl);
 
-      alert("Upload successful!");
+      // Save product data to Firestore
+      await addDoc(collection(db, "products"), {
+        name,
+        category,
+        price,
+        imageUrl,
+        userId: user?.uid,
+        username: user?.username,
+        createdAt: serverTimestamp(),
+      });
 
-      // Reset form fields
+      alert("Product uploaded successfully!");
+
+      // Reset form
       setName("");
       setCategory("");
       setPrice("");
@@ -50,7 +66,7 @@ const Create = () => {
       setImagePreview("");
     } catch (err) {
       console.error('Upload failed', err);
-      alert("Image upload failed.");
+      alert("Image upload or Firestore save failed.");
     }
   };
 
