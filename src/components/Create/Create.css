@@ -1,13 +1,23 @@
-.centerDiv {
+/* .centerDiv {
     border: 1px solid black;
     width: max-content;
     padding: 50px;
-    position: absolute;
+    position: relative;
     top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 6px;
+  } */
+
+  .centerDiv {
+    margin: 100px auto; /* Adds space below header */
+    width: max-content;
+    padding: 50px;
+    border: 1px solid black;
+    border-radius: 6px;
   }
+  
+  
   .input {
     border-top-color: transparent;
     border-left-color: transparent;
