@@ -4,9 +4,12 @@ import Header from '../Header/Header';
 import { useAuth } from '../../contex/AuthContex';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase'; // ✅ Firestore db import
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
   const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -64,6 +67,8 @@ const Create = () => {
       setPrice("");
       setImage(null);
       setImagePreview("");
+
+      navigate('/');
     } catch (err) {
       console.error('Upload failed', err);
       alert("Image upload or Firestore save failed.");
