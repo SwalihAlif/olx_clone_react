@@ -3,7 +3,7 @@ import './Create.css';
 import Header from '../Header/Header';
 import { useAuth } from '../../contex/AuthContex';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../firebase'; // ✅ Firestore db import
+import { db } from '../../firebase'; // Firestore db import
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
