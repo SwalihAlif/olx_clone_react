@@ -79,6 +79,8 @@ const Create = () => {
     <>
       <Header />
       <div className="centerDiv">
+        <div className='mainContent'>
+
         <form onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
           <br />
@@ -123,6 +125,7 @@ const Create = () => {
             Upload and Submit
           </button>
         </form>
+        </div>
       </div>
     </>
   );

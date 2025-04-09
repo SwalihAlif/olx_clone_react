@@ -21,6 +21,7 @@ function Header() {
     navigate('/login')
   }
 
+
   const [displayUser, setDisplayUser] = useState(null);
 
   console.log("User in header:", user);

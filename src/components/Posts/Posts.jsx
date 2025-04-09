@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import Heart from '../../assets/Heart';
 import './Posts.css';
+import { useNavigate } from 'react-router-dom';
+import { PostContext } from '../../contex/PostContext';
 
 function Posts() {
 
   const [products, setProducts] = useState([]);
+  const { setPostDetails } = useContext(PostContext) // this is Access setter
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -17,6 +21,11 @@ function Posts() {
 
     fetchProducts();
   }, []);
+
+  const handleCardClick = (product) => {
+    setPostDetails(product); // this is for storing data in the context
+    navigate(`/view/${product.id}`);
+  }
 
   return (
     <div className="postParentDiv">
@@ -29,7 +38,7 @@ function Posts() {
         <div className="cards">
           {products.map(product => (
 
-            <div className="card" key={product.id}>
+            <div className="card" key={product.id} onClick={() => handleCardClick(product)}>
             <div className="favorite">
               <Heart />
             </div>

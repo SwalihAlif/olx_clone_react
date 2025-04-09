@@ -9,6 +9,7 @@
   .viewParentDiv .imageShowDiv img {
     width: 65vw;
     height: 85vh;
+    border: solid;
   }
   
   .viewParentDiv .rightSection {
@@ -31,13 +32,14 @@
     padding: 6px;
     border-radius: 6px;
     margin-bottom: 2em;
-    width: 100%;
+    width: 77%;
   }
   
   .viewParentDiv .rightSection .contactDetails {
     border: 1px solid black;
     padding: 6px;
     border-radius: 6px;
+    width: 77%;
   }
   
   .viewParentDiv .rightSection .contactDetails :first-child {

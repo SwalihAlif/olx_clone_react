@@ -9,8 +9,19 @@
     border-radius: 6px;
   } */
 
+  
+
   .centerDiv {
-    margin: 100px auto; /* Adds space below header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 350px;
+    height: 100vh;
+    width: 100vh;
+  }
+
+  
+  .mainContent {
     width: max-content;
     padding: 50px;
     border: 1px solid black;
