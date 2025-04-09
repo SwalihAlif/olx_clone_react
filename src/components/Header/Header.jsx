@@ -21,6 +21,14 @@ function Header() {
     navigate('/login')
   }
 
+  const handleSell = () => {
+    if (user) {
+      navigate('/create')
+    } else {
+      navigate('/login')
+    }
+  }
+
 
   const [displayUser, setDisplayUser] = useState(null);
 
@@ -82,7 +90,7 @@ function Header() {
         }
 
         {/* Sell Button */}
-        <div className="sellMenu">
+        <div className="sellMenu" onClick={handleSell}>
           <SellButton />
           <div className="sellMenuContent">
             <SellButtonPlus />
