@@ -4,6 +4,7 @@ import './Login.css';
 // import {login} from '../../firebase'
 import { useAuth } from '../../contex/AuthContex';
 import {useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 
 
@@ -23,11 +24,11 @@ function Login() {
       try{
         await login(email, password);
         navigate("/")
-        alert("✅ Logged in successfully");
+        toast.success("✅ Logged in successfully");
         console.log("User: ", user)
 
       } catch (err) {
-        alert("❌ Login failed: " + err.message);
+        toast.error("❌ Login failed: " + err.message);
       }
     }
   };

@@ -3,12 +3,12 @@ import './Create.css';
 import Header from '../Header/Header';
 import { useAuth } from '../../contex/AuthContex';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../firebase'; // Firestore db import
+import { db } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Create = () => {
   const { user } = useAuth();
-
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -19,15 +19,45 @@ const Create = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImage(file);
-    setImagePreview(URL.createObjectURL(file));
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !category || !price || !image) {
-      alert("Please fill all fields and choose an image.");
+    // === Validation ===
+    if (!name.trim()) {
+      toast.error("Product name is required.");
+      return;
+    }
+
+    if (!category.trim()) {
+      toast.error("Category is required.");
+      return;
+    }
+
+    if (!price) {
+      toast.error("Price is required.");
+      return;
+    }
+
+    const priceValue = parseFloat(price);
+    if (isNaN(priceValue) || priceValue <= 0) {
+      toast.error("Price must be a positive number.");
+      return;
+    }
+
+    if (!image) {
+      toast.error("Please upload an image.");
+      return;
+    }
+
+    const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!validTypes.includes(image.type)) {
+      toast.error("Only JPG, JPEG, and PNG files are allowed.");
       return;
     }
 
@@ -46,20 +76,18 @@ const Create = () => {
 
       const data = await res.json();
       const imageUrl = data.secure_url;
-      console.log('Image URL:', imageUrl);
 
-      // Save product data to Firestore
       await addDoc(collection(db, "products"), {
         name,
         category,
-        price,
+        price: priceValue,
         imageUrl,
         userId: user?.uid,
         username: user?.username,
         createdAt: serverTimestamp(),
       });
 
-      alert("Product uploaded successfully!");
+      toast.success("Product uploaded successfully!");
 
       // Reset form
       setName("");
@@ -71,7 +99,7 @@ const Create = () => {
       navigate('/');
     } catch (err) {
       console.error('Upload failed', err);
-      alert("Image upload or Firestore save failed.");
+      toast.error("Image upload or Firestore save failed.");
     }
   };
 
@@ -81,50 +109,51 @@ const Create = () => {
       <div className="centerDiv">
         <div className='mainContent'>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Name</label>
-          <br />
-          <input
-            className="input"
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <br />
-          <label htmlFor="category">Category</label>
-          <br />
-          <input
-            className="input"
-            type="text"
-            id="category"
-            name="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <br />
-          <label htmlFor="price">Price</label>
-          <br />
-          <input
-            className="input"
-            type="number"
-            id="price"
-            name="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <br />
-          <input type="file" onChange={handleImageChange} />
-          <br />
-          {imagePreview && (
-            <img alt="Preview" width="200px" height="200px" src={imagePreview} />
-          )}
-          <br />
-          <button className="uploadBtn" type="submit">
-            Upload and Submit
-          </button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <br />
+            <input
+              className="input"
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <br />
+            <label htmlFor="category">Category</label>
+            <br />
+            <input
+              className="input"
+              type="text"
+              id="category"
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
+            <br />
+            <label htmlFor="price">Price</label>
+            <br />
+            <input
+              className="input"
+              type="number"
+              id="price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <br />
+            <input type="file" onChange={handleImageChange} />
+            <br />
+            {imagePreview && (
+              <img alt="Preview" width="200px" height="200px" src={imagePreview} />
+            )}
+            <br />
+            <button className="uploadBtn" type="submit">
+              Upload and Submit
+            </button>
+          </form>
+
         </div>
       </div>
     </>
@@ -132,3 +161,4 @@ const Create = () => {
 };
 
 export default Create;
+

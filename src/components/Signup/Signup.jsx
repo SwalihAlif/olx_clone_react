@@ -4,6 +4,7 @@ import './Signup.css';
 // import {signUp} from '../../firebase'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contex/AuthContex';
+import { toast } from 'react-toastify';
 
 export default function Signup() {
 
@@ -23,12 +24,12 @@ export default function Signup() {
     if (signupState==="Sign Up") {
       try {
         await signUp(email, password, username, phone);
-        alert("Signed up successfully")
+        toast.success("Signed up successfully")
         navigate('/');
 
       } catch (error) {
         console.error("Signup error: ", error);
-        alert("Signup failed");
+        toast.error("Signup failed");
       }
     }
   };
