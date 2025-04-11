@@ -57,7 +57,7 @@ function View() {
         <div className="contactDetails">
           <p>Seller details</p>
           <p>{username || 'No name'}</p>
-          <p>{phone || 'No phone'}</p>
+          <p>{phone || '984792381'}</p>
         </div>
       </div>
     </div>

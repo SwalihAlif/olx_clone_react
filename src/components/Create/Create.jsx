@@ -84,6 +84,7 @@ const Create = () => {
         imageUrl,
         userId: user?.uid,
         username: user?.username,
+        phone: user?.phone,
         createdAt: serverTimestamp(),
       });
 
