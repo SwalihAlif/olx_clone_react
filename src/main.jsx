@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { AuthProvider } from './contex/AuthContex.jsx'
 import Post from './contex/PostContext.jsx'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css'  
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
